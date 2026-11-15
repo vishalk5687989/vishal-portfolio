@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishal | Web Developer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #2563eb;
+    --dark: #0f172a;
+    --light: #f8fafc;
+    --gray: #64748b;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #334155;
+    --nav-bg: rgba(255,255,255,0.95);
+    --shadow: rgba(0,0,0,0.06);
+  }
+
+  [data-theme="dark"] {
+    --primary: #60a5fa;
+    --dark: #f1f5f9;
+    --light: #0f172a;
+    --gray: #94a3b8;
+    --card: #1e293b;
+    --text: #f1f5f9;
+    --muted: #cbd5e1;
+    --nav-bg: rgba(15,23,42,0.95);
+    --shadow: rgba(0,0,0,0.3);
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+    transition: background 0.3s, color 0.3s;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* NAVBAR */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 1rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.3s;
+  }
+  .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--primary); }
+
+  /* THEME TOGGLE */
+  .theme-toggle {
+    background: var(--card);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .theme-toggle:hover { transform: rotate(20deg) scale(1.1); }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--light) 0%, var(--card) 100%);
+    padding: 2rem;
+  }
+  .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+  .hero h1 span { color: var(--primary); }
+  .hero p { font-size: 1.2rem; color: var(--gray); max-width: 600px; margin: 0 auto 2rem; }
+  .btn {
+    display: inline-block;
+    background: var(--primary); color: #fff;
+    padding: 0.8rem 2rem; border-radius: 8px;
+    font-weight: 600; border: none; cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,99,235,0.3); }
+  .btn-outline {
+    background: transparent; color: var(--primary);
+    border: 2px solid var(--primary); margin-left: 1rem;
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 5%; max-width: 1100px; margin: 0 auto; }
+  .section-title { font-size: 2rem; margin-bottom: 0.5rem; text-align: center; }
+  .section-subtitle { text-align: center; color: var(--gray); margin-bottom: 3rem; }
+
+  /* ABOUT */
+  .about-text { max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: var(--muted); }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--card); padding: 1.8rem; border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: transform 0.2s, background 0.3s;
+  }
+  .skill-card:hover { transform: translateY(-5px); }
+  .skill-card h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.2rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    background: rgba(37,99,235,0.1); color: var(--primary);
+    padding: 0.4rem 0.9rem; border-radius: 20px;
+    font-size: 0.9rem; font-weight: 500;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--card); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px var(--shadow); }
+  .project-header {
+    background: linear-gradient(135deg, var(--primary), #1e40af);
+    color: #fff; padding: 2rem 1.5rem;
+    font-size: 1.2rem; font-weight: 600;
+  }
+  .project-body { padding: 1.5rem; }
+  .project-body p { color: var(--gray); font-size: 0.95rem; }
+
+  /* EXPERIENCE */
+  .timeline {
+    max-width: 800px; margin: 0 auto;
+    border-left: 3px solid var(--primary);
+    padding-left: 2rem;
+  }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2.6rem; top: 0.3rem;
+    width: 14px; height: 14px; background: var(--primary);
+    border-radius: 50%; border: 3px solid var(--light);
+    box-shadow: 0 0 0 3px var(--primary);
+  }
+  .timeline-item h3 { font-size: 1.2rem; }
+  .timeline-item .role { color: var(--primary); font-weight: 600; margin-bottom: 0.5rem; }
+  .timeline-item p { color: var(--gray); }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  .edu-card {
+    background: var(--card); padding: 1.8rem; border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow);
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .edu-card h3 { color: var(--primary); margin-bottom: 0.5rem; }
+  .edu-card .score { font-size: 1.5rem; font-weight: 700; }
+  .edu-card .meta { color: var(--gray); font-size: 0.9rem; }
+
+  /* CONTACT */
+  .contact { text-align: center; }
+  .contact-info {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 1.5rem; margin-bottom: 3rem;
+  }
+  .contact-item {
+    background: var(--card); padding: 1.2rem 2rem; border-radius: 10px;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: transform 0.2s, background 0.3s;
+  }
+  .contact-item:hover { transform: translateY(-3px); }
+  .contact-item .label { color: var(--gray); font-size: 0.85rem; }
+  .contact-item .value { font-weight: 600; }
+
+  /* CONTACT FORM */
+  .contact-form {
+    max-width: 600px; margin: 0 auto;
+    background: var(--card); padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow);
+    text-align: left;
+  }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block; margin-bottom: 0.5rem;
+    font-weight: 600; font-size: 0.9rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%; padding: 0.8rem 1rem;
+    background: var(--light);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-family: inherit; font-size: 1rem;
+    color: var(--text);
+    transition: border 0.2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-status {
+    text-align: center; margin-top: 1rem;
+    font-weight: 600; min-height: 1.5rem;
+  }
+  .form-status.success { color: #16a34a; }
+  .form-status.error { color: #dc2626; }
+
+  /* LANGUAGES */
+  .lang-list { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); color: #cbd5e1;
+    text-align: center; padding: 2rem;
+    margin-top: 3rem;
+  }
+  [data-theme="dark"] footer { background: #020617; }
+
+  /* MOBILE MENU */
+  .menu-btn {
+    display: none;
+    background: none; border: none; cursor: pointer;
+    font-size: 1.5rem; color: var(--text);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .menu-btn { display: block; }
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--nav-bg);
+      flex-direction: column; gap: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px var(--shadow);
+      display: none;
+    }
+    .nav-links.open { display: flex; }
+    .hero h1 { font-size: 2rem; }
+    .btn-outline { margin-left: 0; margin-top: 0.8rem; }
+    .hero .buttons { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">Vishal</div>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div>
+    <h1>Hi, I'm <span>Vishal</span></h1>
+    <p>Web Developer | Front-End & Back-End Enthusiast | WordPress & PHP Specialist</p>
+    <div class="buttons">
+      <a href="#contact" class="btn">Hire Me</a>
+      <a href="#projects" class="btn btn-outline">View Projects</a>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2 class="section-title">About Me</h2>
+  <p class="section-subtitle">A short introduction</p>
+  <p class="about-text">
+    I am a self-completed, hardworking and goal-oriented person, looking to begin my career
+    in a growth-oriented company where I can apply my knowledge of web development, learn new skills,
+    and contribute to organizational goals. I have hands-on experience in creating and managing websites
+    using front-end and back-end technologies.
+  </p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <h2 class="section-title">My Skills</h2>
+  <p class="section-subtitle">Technologies & tools I work with</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>Frontend</h3>
+      <div class="tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Bootstrap</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">jQuery</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>Backend</h3>
+      <div class="tags">
+        <span class="tag">PHP</span>
+        <span class="tag">SQL</span>
+        <span class="tag">WordPress</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>Other</h3>
+      <div class="tags">
+        <span class="tag">WordPress Custom Theme</span>
+        <span class="tag">Hooks & Filters</span>
+        <span class="tag">REST API</span>
+        <span class="tag">Async JS</span>
+        <span class="tag">CRUD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="section-title">Projects</h2>
+  <p class="section-subtitle">Some of the work I've done</p>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-header">WordPress Custom Theme</div>
+      <div class="project-body">
+        <p>Built a fully custom WordPress theme using hooks and filters, with responsive design and dynamic content.</p>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">REST API in PHP</div>
+      <div class="project-body">
+        <p>Created a RESTful API in PHP and handled it on the front-end using async JavaScript functions.</p>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">Complaint Management System</div>
+      <div class="project-body">
+        <p>A CRUD-based complaint management system with custom design, allowing users to submit and track complaints.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <h2 class="section-title">Experience</h2>
+  <p class="section-subtitle">Where I've worked</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>RK Digital Work</h3>
+      <div class="role">Web Development Intern — 6 Months</div>
+      <p>Gained hands-on experience in creating and managing websites using different front-end and back-end technologies, including WordPress, PHP, and JavaScript.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <h2 class="section-title">Education</h2>
+  <p class="section-subtitle">My academic background</p>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <h3>Bachelor of Computer Application</h3>
+      <p class="meta">I.K.G. Punjab Technical University, Kapurthala</p>
+      <p class="meta">Graduated: 2026</p>
+    </div>
+    <div class="edu-card">
+      <h3>12th (PSEB)</h3>
+      <p class="score">75%</p>
+      <p class="meta">Punjab School Education Board</p>
+    </div>
+    <div class="edu-card">
+      <h3>10th (PSEB)</h3>
+      <p class="score">79%</p>
+      <p class="meta">Punjab School Education Board</p>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section id="languages">
+  <h2 class="section-title">Languages</h2>
+  <p class="section-subtitle">Languages I can speak</p>
+  <div class="lang-list">
+    <span class="tag">English</span>
+    <span class="tag">Hindi</span>
+    <span class="tag">Punjabi</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <h2 class="section-title">Get In Touch</h2>
+  <p class="section-subtitle">Feel free to reach out for opportunities</p>
+
+  <div class="contact-info">
+    <div class="contact-item">
+      <div class="label">Email</div>
+      <div class="value"><a href="mailto:Vishalkashiyap98@Gmail.Com">Vishalkashiyap98@Gmail.Com</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="label">Phone</div>
+      <div class="value"><a href="tel:+918727950155">+91 87279 50155</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="label">Location</div>
+      <div class="value">Sector 33, Gurgaon</div>
+    </div>
+  </div>
+
+  <!-- CONTACT FORM -->
+  <form class="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <div class="form-group">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required placeholder="Enter your name">
+    </div>
+    <div class="form-group">
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required placeholder="Write your message here..."></textarea>
+    </div>
+    <button type="submit" class="btn" style="width:100%;">Send Message</button>
+    <div class="form-status" id="formStatus"></div>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Vishal. All rights reserved.</p>
+  <p style="margin-top:0.5rem; font-size:0.9rem;">Built with ❤️ and code</p>
+</footer>
+
+<script>
+  /* ===== DARK MODE TOGGLE ===== */
+  const themeToggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    html.setAttribute('data-theme', savedTheme);
+    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+  });
+
+  /* ===== MOBILE MENU ===== */
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+  // Close menu when a link is clicked
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  /* ===== CONTACT FORM (AJAX submit) ===== */
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+
+  form.addEventListener('submit', async (e) => {
+    // If the placeholder is still there, warn the user
+    if (form.action.includes('YOUR_FORM_ID')) {
+      e.preventDefault();
+      status.textContent = '⚠️ Replace YOUR_FORM_ID with your Formspree ID first.';
+      status.className = 'form-status error';
+      return;
+    }
+
+    e.preventDefault();
+    status.textContent = 'Sending...';
+    status.className = 'form-status';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        status.textContent = '✅ Thanks! Your message has been sent.';
+        status.className = 'form-status success';
+        form.reset();
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      status.textContent = '❌ Something went wrong. Please try again.';
+      status.className = 'form-status error';
+    }
+  });
+</script>
+
+</body>
+</html>
